@@ -37,17 +37,23 @@ const Statistics = (props) => {
   }
 
   const {good, neutral, bad, all} = props;
-  
+
   return (
     <div>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {all}</p>
-      <p>average {(good - bad) / all}</p>
-      <p>positive {(good / all) * 100} %</p>
+      <Statistic text={"good"} value={good} />
+      <Statistic text={"neutral"} value={neutral} />
+      <Statistic text={"bad"} value={bad} />
+      <Statistic text={"all"} value={all} />
+      <Statistic text={"average"} value={(good - bad) / all} />
+      <Statistic text={"positive"} value={(good / all) * 100} />
     </div>
   );
 };
+
+const Statistic = (props) => {
+  return (
+    <p>{props.text} {props.value}</p>
+  )
+}
 
 ReactDOM.render(<App />, document.getElementById('root'));
