@@ -3,24 +3,33 @@ import ReactDOM from 'react-dom';
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(props.votes)
 
-  const clickHandler = () => {
+  const handleClick = () => {
     const randomNumber = Math.floor(Math.random() * anecdotes.length);
-    console.log(randomNumber)
     setSelected(randomNumber);
   }
   
+  const handleVote = () => {
+    const votesCopy = [...votes];
+    votesCopy[selected] += 1;
+    setVotes(votesCopy)
+  }
+
+  console.log(votes)
   return (
     <div>
       <h3>{props.anecdotes[selected]}</h3>
-      <Button clickHandler={() => clickHandler()}/>
+      <h3>has {votes[selected]} votes</h3>
+      <Button handleClick={() => handleClick()} text={"next anecdote"} />
+      <Button handleClick={() => handleVote()} text={"vote"} />
     </div>
   )
 }
 
 const Button = (props) => {
   return (
-    <button onClick={props.clickHandler}>next anecdote</button>
+    <button onClick={props.handleClick}>{props.text}</button>
   )
 }
 
@@ -33,4 +42,6 @@ const anecdotes = [
   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
 ]
 
-ReactDOM.render(<App anecdotes={anecdotes} />, document.getElementById('root'));
+const votes = Array.apply(null, new Array(anecdotes.length)).map(Number.prototype.valueOf,0);
+
+ReactDOM.render(<App anecdotes={anecdotes} votes={votes} />, document.getElementById('root'));
