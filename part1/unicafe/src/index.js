@@ -25,15 +25,19 @@ const App = () => {
 };
 
 // Components
-const Title = ({ text }) => {
-  return <><h1>{text}</h1></>
-};
+const Title = ({ text }) => <h1>{text}</h1>;
 
-const Button = ({ handleClick, text }) => {
-  return <button onClick={handleClick}>{text}</button>;
-};
+const Button = ({ handleClick, text }) => <button onClick={handleClick}>{text}</button>;
 
-const Statistics = ({good, neutral, bad, all}) => {
+const Statistics = (props) => {
+  if (props.all === 0) {
+    return (
+      <p>No feedback given</p>
+    )
+  }
+
+  const {good, neutral, bad, all} = props;
+  
   return (
     <div>
       <p>good {good}</p>
