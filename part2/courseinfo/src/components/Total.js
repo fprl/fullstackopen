@@ -1,9 +1,16 @@
 import React from 'react';
 
-const Total = (props) => {
+const Total = ({ parts }) => {
+  let exerciseSum = parts.reduce(
+    (acummulator, part) => acummulator + part.exercises,
+    0
+  );
+
   return (
-    <p>Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}</p>
-  )
+    <p>
+      <strong>Number of exercises {exerciseSum}</strong>
+    </p>
+  );
 };
 
 export default Total;
