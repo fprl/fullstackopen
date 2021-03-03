@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import Note from './components/Note';
+import Filter from './components/Filter';
+import PersonForm from './components/PersonForm';
+import Persons from './components/Persons';
 
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', phoneNumber: '040-1234567' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-      { name: 'Mary Poppendieck', number: '39-23-6423122' }
+    { name: 'Ada Lovelace', phoneNumber: '39-44-5323523' },
+      { name: 'Mary Poppendieck', phoneNumber: '39-23-6423122' }
   ]);
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
@@ -18,7 +20,7 @@ const App = () => {
       phoneNumber: newPhone,
     }
 
-    const personExist = persons.find(person => person.name === personObject.name);
+    const personExist = persons.find(person => person.name.toLowerCase() === personObject.name.toLowerCase());
     if (personExist) {
       alert(`${personObject.name} is already added to phonebook`);
       return;
@@ -42,28 +44,13 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with <input onChange={handleSearchChange}></input>
-      </div>
+      <Filter handleSearchChange={handleSearchChange} />
 
       <h2>Add a new</h2>
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange} />
-        </div>
-        <div>
-          number: <input value={newPhone} onChange={handlePhoneChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm handlers={{addPerson, handleNameChange, handlePhoneChange}} newName={newName} newPhone={newPhone} />
       
       <h2>Numbers</h2>
-      <ul>
-        {personsToShow.map((person) => <Note key={person.name} name={person.name} phoneNumber={person.phoneNumber}/>)}
-      </ul>
-      {/* <p>debug: {newName}</p> */}
+      <Persons personsToShow={personsToShow} />
     </div>
   );
 };
