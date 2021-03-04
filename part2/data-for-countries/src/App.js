@@ -6,6 +6,7 @@ import Countries from './components/Countries';
 const App = () => {
   const [countries, setCountries] = useState([]);
   const [showAll, setShowAll] = useState('');
+  const [weather, setWeather] = useState([]);
 
   const hook = () => {
     axios
@@ -23,7 +24,7 @@ const App = () => {
   
   return (
     <div>
-      <Search handleSearchChange={handleSearchChange} />
+      <Search handleChange={handleSearchChange} />
       <Countries countries={countriesToShow} handleClick={handleClickCountry} />
     </div>
   );
