@@ -14,7 +14,8 @@ const App = () => {
   }
   useEffect(hook, [])
 
-  const handleSearchChange = (e) => setShowAll(e.target.value);
+  const handleSearchChange = e => setShowAll(e.target.value);
+  const handleClickCountry = country => setShowAll(country);
 
   const countriesToShow = showAll === ''
     ? countries
@@ -23,7 +24,7 @@ const App = () => {
   return (
     <div>
       <Search handleSearchChange={handleSearchChange} />
-      <Countries countries={countriesToShow} />
+      <Countries countries={countriesToShow} handleClick={handleClickCountry} />
     </div>
   );
 };
