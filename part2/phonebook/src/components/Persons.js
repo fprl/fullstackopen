@@ -1,11 +1,11 @@
 import React from 'react';
 import Person from './Person';
 
-const Persons = ({ persons }) => {
-  console.log(persons);
+const Persons = ({ persons, setDelRequest }) => {
+  
   return(
     <ul>
-    {persons.map((person) => <Person key={person.id} name={person.name} number={person.number}/>)}
+    {persons.map((person) => <Person key={person.id} person={person} setDelRequest={setDelRequest}/>)}
   </ul>
   )
 };

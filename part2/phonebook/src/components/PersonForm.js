@@ -7,6 +7,7 @@ const PersonForm = ({persons, setPersons}) => {
 
   const addPerson = (e) => {
     e.preventDefault();
+
     const personObject = {
       name: newName,
       phoneNumber: newPhone,
@@ -19,11 +20,9 @@ const PersonForm = ({persons, setPersons}) => {
     } else {
       phonesService
         .create(personObject)
-        .then(person => {
-          setPersons(persons.concat(person))
-          setNewName('');
-          setNewPhone('');
-        })
+        .then(person => setPersons(persons.concat(person)))
+      setNewName('');
+      setNewPhone('');
     }
   };
 

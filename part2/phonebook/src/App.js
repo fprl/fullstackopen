@@ -7,16 +7,16 @@ import Persons from './components/Persons';
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [showAll, setShowAll] = useState('');
+  const [delRequest, setDelRequest] = useState(new Date());
 
-  const hook = () => {
+  const hookPersons = () => {
     phonesService
       .getAll()
       .then(initialPersons => setPersons(initialPersons))
-  }
+    }
 
-  useEffect(hook, []);
+  useEffect(hookPersons, [delRequest]);
 
-  const handleSearchChange = e => setShowAll(e.target.value);
 
   const personsToShow = showAll === ''
     ? persons
@@ -25,13 +25,13 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Filter handleSearchChange={handleSearchChange} />
+      <Filter setShowAll={setShowAll} />
 
       <h2>Add a new</h2>
       <PersonForm persons={persons} setPersons={setPersons} />
       
       <h2>Numbers</h2>
-      <Persons persons={personsToShow} />
+      <Persons persons={personsToShow} setDelRequest={setDelRequest} />
     </div>
   );
 };
