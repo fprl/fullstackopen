@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Note = ({ name, phoneNumber }) => {
-  return <li>{name} {phoneNumber}</li>;
+const Note = ({ name, number }) => {
+  return <li>{name} {number}</li>;
 };
 
 export default Note;

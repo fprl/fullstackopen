@@ -1,19 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
+import phonesService from '../services/phones';
 
-const PersonForm = ({handlers, newName, newPhone}) => {
-  const {addPerson, handleNameChange, handlePhoneChange} = handlers;
-  
+const PersonForm = ({persons, setPersons}) => {
+  const [newName, setNewName] = useState('');
+  const [newPhone, setNewPhone] = useState('');
+
+  const addPerson = (e) => {
+    e.preventDefault();
+    const personObject = {
+      name: newName,
+      phoneNumber: newPhone,
+    }
+
+    const personExist = persons.find(person => person.name.toLowerCase() === personObject.name.toLowerCase());
+    if (personExist) {
+      alert(`${personObject.name} is already added to phonebook`);
+      return;
+    } else {
+      phonesService
+        .create(personObject)
+        .then(person => {
+          setPersons(persons.concat(person))
+          setNewName('');
+          setNewPhone('');
+        })
+    }
+  };
+
   return (
     <form onSubmit={addPerson}>
     <div>
-      name: <input value={newName} onChange={handleNameChange} />
+      name: <input value={newName} onChange={e => setNewName(e.target.value)} />
     </div>
     <div>
-      number: <input value={newPhone} onChange={handlePhoneChange} />
+      number: <input value={newPhone} onChange={e => setNewPhone(e.target.value)} />
     </div>
-    <div>
-      <button type="submit">add</button>
-    </div>
+    <button type="submit">add</button>
   </form>
   )
 }
