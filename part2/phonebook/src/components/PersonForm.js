@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import phonesService from '../services/phones';
 
-const PersonForm = ({persons, setPersons}) => {
+const PersonForm = ({persons, setNewRequest}) => {
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
 
@@ -20,7 +20,7 @@ const PersonForm = ({persons, setPersons}) => {
     } else {
       phonesService
         .create(personObject)
-        .then(person => setPersons(persons.concat(person)))
+      setNewRequest(new Date());
       setNewName('');
       setNewPhone('');
     }

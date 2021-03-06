@@ -7,7 +7,7 @@ import Persons from './components/Persons';
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [showAll, setShowAll] = useState('');
-  const [delRequest, setDelRequest] = useState(new Date());
+  const [newRequest, setNewRequest] = useState(new Date());
 
   const hookPersons = () => {
     phonesService
@@ -15,7 +15,7 @@ const App = () => {
       .then(initialPersons => setPersons(initialPersons))
     }
 
-  useEffect(hookPersons, [delRequest]);
+  useEffect(hookPersons, [newRequest]);
 
 
   const personsToShow = showAll === ''
@@ -28,10 +28,10 @@ const App = () => {
       <Filter setShowAll={setShowAll} />
 
       <h2>Add a new</h2>
-      <PersonForm persons={persons} setPersons={setPersons} />
+      <PersonForm persons={persons} setNewRequest={setNewRequest} />
       
       <h2>Numbers</h2>
-      <Persons persons={personsToShow} setDelRequest={setDelRequest} />
+      <Persons persons={personsToShow} setNewRequest={setNewRequest} />
     </div>
   );
 };

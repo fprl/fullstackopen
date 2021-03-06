@@ -1,11 +1,14 @@
 import React from 'react';
 import phonesService from '../services/phones';
 
-const Person = ({ person, setDelRequest }) => {
+const Person = ({ person, setNewRequest }) => {
   const handleClickDelete = (id) => {
-    phonesService
-      .deletePerson(id)
-    setDelRequest(new Date());
+    const result = window.confirm(`Delete ${person.name}?`);
+    if (result) {
+      phonesService
+        .deletePerson(id)
+      setNewRequest(new Date());
+    }
   }
 
   return (
