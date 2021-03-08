@@ -7,6 +7,8 @@ const Person = ({ person, setNewRequest, handleNotification }) => {
     if (result) {
       phonesService
         .deletePerson(id)
+        .catch(error => handleNotification('error', person.name))
+        .then(() => setNewRequest(new Date()))
       setNewRequest(new Date());
       handleNotification('remove', person.name);
     }

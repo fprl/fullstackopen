@@ -20,8 +20,10 @@ const App = () => {
   useEffect(hookPersons, [newRequest]);
 
   const handleNotification = (action, person) => {
-    console.log(action, person);
-    const text = `${action} ${person}`
+    const text = 
+      action === 'error'
+        ? `Information of ${person} has already been removed from server`
+        : `${action} ${person}`;
 
     const newNotification = {text, action};
     setNotificationMessage(Object.assign(notificationMessage, newNotification));
