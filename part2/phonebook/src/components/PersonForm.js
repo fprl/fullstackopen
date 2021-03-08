@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import phonesService from '../services/phones';
 
-const PersonForm = ({persons, setNewRequest}) => {
+const PersonForm = ({persons, setNewRequest, handleNotification}) => {
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
 
@@ -25,6 +25,7 @@ const PersonForm = ({persons, setNewRequest}) => {
         phonesService
           .updatePerson(personExist.id, personObject)
         setNewRequest(new Date());
+        handleNotification('update', personExist.name)
         setNewName('');
         setNewPhone('');
       }
@@ -32,6 +33,7 @@ const PersonForm = ({persons, setNewRequest}) => {
       phonesService
         .create(personObject)
       setNewRequest(new Date());
+      handleNotification('add', personObject.name)
       setNewName('');
       setNewPhone('');
     }
