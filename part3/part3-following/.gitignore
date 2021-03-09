@@ -1,2 +1,1 @@
 node_modules
-# "build:ui": "rmdir /s /q build && cd ../part3-following-FE && npm run build --prod && xcopy \build ..\"part3-following/\" /i",
