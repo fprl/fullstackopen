@@ -1,8 +1,8 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
-const url = process.env.MONGODB_URI;
+const url = process.env.MONGODB_URI
 
-const noteContent = process.argv[2];
+const noteContent = process.argv[2]
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
   .then(result => {
@@ -48,9 +48,9 @@ const getNotes = () => {
 }
 
 if (process.argv.length === 2) {
-  getNotes();
+  getNotes()
 }
 
 if (process.argv.length === 3) {
-  createNote();
+  createNote()
 }
