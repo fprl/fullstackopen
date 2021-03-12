@@ -13,10 +13,6 @@ const requestLogger = (request, response, next) => {
   next()
 }
 
-const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'unknown endpoint' })
-}
-
 const errorHandler = (error, request, response, next) => {
   console.error(error.message)
 
@@ -27,6 +23,10 @@ const errorHandler = (error, request, response, next) => {
   }
 
   next(error)
+}
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
 }
 
 app.use(express.static('build'))
@@ -96,8 +96,8 @@ app.delete('/api/notes/:id', (request, response, next) => {
 })
 
 
-app.use(unknownEndpoint)
 app.use(errorHandler)
+app.use(unknownEndpoint)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
