@@ -2,10 +2,6 @@ POST http://localhost:3001/api/notes
 Content-Type: application/json
 
 {
-  "content": "This is a new note from VS Code Rest client",
+  "content": "Test note",
   "important": true
 }
-
-###
-
-GET http://localhost:3001/api/notes/15
