@@ -1,0 +1,18 @@
+# POST https://fso-part3-pbook.herokuapp.com/api/persons
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "firstName": "Ada Lovelace",
+  "phoneNumber": "401231236"
+}
+
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "firstName": "Juan Rodriguez",
+  "phoneNumber": "123456789"
+}
