@@ -24,71 +24,86 @@ beforeEach(async () => {
 })
 
 // tests
-test('returns the correct amount of blogposts in JSON', async () => {
-  console.log('entered test')
-  const notes = await api
-    .get('/api/blogs')
-    .expect('Content-Type', /application\/json/)
-
-  expect(notes.body).toHaveLength(helper.initialBlogs.length)
+describe('when there is initially some notes saved', () => {
+  test('returns the correct amount of blogposts in JSON', async () => {
+    console.log('entered test')
+    const notes = await api
+      .get('/api/blogs')
+      .expect('Content-Type', /application\/json/)
+  
+    expect(notes.body).toHaveLength(helper.initialBlogs.length)
+  })
+  
+  test('there is a id unique identifier', async () => {
+    const response = await api.get('/api/blogs')
+    const blog = response.body[0]
+  
+    expect(blog.id).toBeDefined()
+  })
 })
 
-test('there is a id unique identifier', async () => {
-  const response = await api.get('/api/blogs')
-  const blog = response.body[0]
-
-  expect(blog.id).toBeDefined()
-})
-
-test('a note is correctly created', async () => {
-const newBlog = {
-    title: 'CSS is hard',
-    author: 'Bianca',
-    url: 'https://bianca.com',
-    likes: 10
-  }
-
-  await api
-    .post('/api/blogs')
-    .send(newBlog)
-    .expect(201)
-
-  const notesAtEnd = await helper.blogsInDb()
-  const createdBlog = notesAtEnd[notesAtEnd.length - 1]
-  delete createdBlog.id
-
-  expect(notesAtEnd).toHaveLength(helper.initialBlogs.length + 1)
-  expect(createdBlog).toEqual(newBlog)
-})
-
-test('if likes is missing, set to 0', async () => {
+describe('addition of a new note', () => {
+  test('a note is correctly created', async () => {
   const newBlog = {
-    title: 'CSS is hard',
-    author: 'Bianca',
-    url: 'https://bianca.com',
-  }
-
-  await api
-    .post('/api/blogs')
-    .send(newBlog)
-    .expect(201)
-
-  const notesAtEnd = await helper.blogsInDb()
-  const createdBlog = notesAtEnd[notesAtEnd.length - 1]
-
-  expect(notesAtEnd).toHaveLength(helper.initialBlogs.length + 1)
-  expect(createdBlog.likes).toBe(0)
+      title: 'CSS is hard',
+      author: 'Bianca',
+      url: 'https://bianca.com',
+      likes: 10
+    }
+  
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(201)
+  
+    const notesAtEnd = await helper.blogsInDb()
+    const createdBlog = notesAtEnd[notesAtEnd.length - 1]
+    delete createdBlog.id
+  
+    expect(notesAtEnd).toHaveLength(helper.initialBlogs.length + 1)
+    expect(createdBlog).toEqual(newBlog)
+  })
+  
+  test('if likes is missing, set to 0', async () => {
+    const newBlog = {
+      title: 'CSS is hard',
+      author: 'Bianca',
+      url: 'https://bianca.com',
+    }
+  
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(201)
+  
+    const notesAtEnd = await helper.blogsInDb()
+    const createdBlog = notesAtEnd[notesAtEnd.length - 1]
+  
+    expect(notesAtEnd).toHaveLength(helper.initialBlogs.length + 1)
+    expect(createdBlog.likes).toBe(0)
+  })
+  
+  test('if title and url are missing, expect 400 bad request', async () => {
+    const newBlog = {
+      author: 'Bianca'
+    }
+  
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(400)
+  })
 })
 
-test.only('if title and url are missing, expect 400 bad request', async () => {
-  const newBlog = {
-    author: 'Bianca'
-  }
+describe('deletion of a note', () => {
+  test.only('succeeds with status code 204 if id is valid', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+    const noteToDelete = blogsAtStart[0]
 
-  await api
-    .post('/api/blogs')
-    .send(newBlog)
-    .expect(400)
+    await api
+      .delete(`/api/blogs/${noteToDelete.id}`)
+      .expect(204)
+  })
 })
 
 afterAll(() => {
