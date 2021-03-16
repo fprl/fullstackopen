@@ -33,11 +33,32 @@ test('returns the correct amount of blogposts in JSON', async () => {
   expect(notes.body).toHaveLength(helper.initialBlogs.length)
 })
 
-test.only('there is a id unique identifier', async () => {
+test('there is a id unique identifier', async () => {
   const response = await api.get('/api/blogs')
   const blog = response.body[0]
 
   expect(blog.id).toBeDefined()
+})
+
+test.only('a note is correctly created', async () => {
+const newBlog = {
+    title: 'CSS is hard',
+    author: 'Bianca',
+    url: 'https://bianca.com',
+    likes: 10
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+
+  const notesAtEnd = await helper.blogsInDb()
+  const createdBlog = notesAtEnd[notesAtEnd.length - 1]
+  delete createdBlog.id
+  
+  expect(notesAtEnd).toHaveLength(helper.initialBlogs.length + 1)
+  expect(createdBlog).toEqual(newBlog)
 })
 
 afterAll(() => {
