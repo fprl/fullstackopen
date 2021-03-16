@@ -24,7 +24,7 @@ beforeEach(async () => {
 })
 
 // tests
-test.only('returns the correct amount of blogposts in JSON', async () => {
+test('returns the correct amount of blogposts in JSON', async () => {
   console.log('entered test')
   const notes = await api
     .get('/api/blogs')
@@ -33,9 +33,11 @@ test.only('returns the correct amount of blogposts in JSON', async () => {
   expect(notes.body).toHaveLength(helper.initialBlogs.length)
 })
 
-test('check for unique identifier property of a blog post to be id', async () => {
-  console.log('entered test')
+test.only('there is a id unique identifier', async () => {
+  const response = await api.get('/api/blogs')
+  const blog = response.body[0]
 
+  expect(blog.id).toBeDefined()
 })
 
 afterAll(() => {
