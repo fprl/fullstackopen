@@ -40,7 +40,7 @@ test('there is a id unique identifier', async () => {
   expect(blog.id).toBeDefined()
 })
 
-test.only('a note is correctly created', async () => {
+test('a note is correctly created', async () => {
 const newBlog = {
     title: 'CSS is hard',
     author: 'Bianca',
@@ -56,9 +56,28 @@ const newBlog = {
   const notesAtEnd = await helper.blogsInDb()
   const createdBlog = notesAtEnd[notesAtEnd.length - 1]
   delete createdBlog.id
-  
+
   expect(notesAtEnd).toHaveLength(helper.initialBlogs.length + 1)
   expect(createdBlog).toEqual(newBlog)
+})
+
+test.only('if likes is missing, set to 0', async () => {
+  const newBlog = {
+    title: 'CSS is hard',
+    author: 'Bianca',
+    url: 'https://bianca.com',
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+
+  const notesAtEnd = await helper.blogsInDb()
+  const createdBlog = notesAtEnd[notesAtEnd.length - 1]
+  
+  expect(notesAtEnd).toHaveLength(helper.initialBlogs.length + 1)
+  expect(createdBlog.likes).toBe(0)
 })
 
 afterAll(() => {
