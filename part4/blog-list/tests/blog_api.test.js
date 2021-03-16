@@ -96,13 +96,33 @@ describe('addition of a new note', () => {
 })
 
 describe('deletion of a note', () => {
-  test.only('succeeds with status code 204 if id is valid', async () => {
+  test('succeeds with status code 204 if id is valid', async () => {
     const blogsAtStart = await helper.blogsInDb()
     const noteToDelete = blogsAtStart[0]
 
     await api
       .delete(`/api/blogs/${noteToDelete.id}`)
       .expect(204)
+  })
+})
+
+describe('update of a note', () => {
+  test('an update is correctly made', async () => {
+    const blogsAtFirst = await helper.blogsInDb()
+    const noteToUpdate = blogsAtFirst[0]
+
+    const newBlogLikes = {
+      likes: 15
+    }
+
+    await api
+      .put(`/api/blogs/${noteToUpdate.id}`)
+      .send(newBlogLikes)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    const updatedBlog = blogsAtEnd[0]
+
+    expect(updatedBlog.likes).toEqual(newBlogLikes.likes)
   })
 })
 
