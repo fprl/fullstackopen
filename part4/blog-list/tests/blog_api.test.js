@@ -61,7 +61,7 @@ const newBlog = {
   expect(createdBlog).toEqual(newBlog)
 })
 
-test.only('if likes is missing, set to 0', async () => {
+test('if likes is missing, set to 0', async () => {
   const newBlog = {
     title: 'CSS is hard',
     author: 'Bianca',
@@ -75,9 +75,20 @@ test.only('if likes is missing, set to 0', async () => {
 
   const notesAtEnd = await helper.blogsInDb()
   const createdBlog = notesAtEnd[notesAtEnd.length - 1]
-  
+
   expect(notesAtEnd).toHaveLength(helper.initialBlogs.length + 1)
   expect(createdBlog.likes).toBe(0)
+})
+
+test.only('if title and url are missing, expect 400 bad request', async () => {
+  const newBlog = {
+    author: 'Bianca'
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
 })
 
 afterAll(() => {
