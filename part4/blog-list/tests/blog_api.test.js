@@ -24,15 +24,18 @@ beforeEach(async () => {
 })
 
 // tests
-test('returns the correct amount of blogposts in JSON', async () => {
+test.only('returns the correct amount of blogposts in JSON', async () => {
   console.log('entered test')
-  await api
+  const notes = await api
     .get('/api/blogs')
     .expect('Content-Type', /application\/json/)
-    .then(response => {
-      expect(response.body).toHaveLength(helper.initialBlogs.length)
-    })
-  
+
+  expect(notes.body).toHaveLength(helper.initialBlogs.length)
+})
+
+test('check for unique identifier property of a blog post to be id', async () => {
+  console.log('entered test')
+
 })
 
 afterAll(() => {
