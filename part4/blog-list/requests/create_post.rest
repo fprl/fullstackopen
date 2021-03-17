@@ -1,9 +1,9 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhlbGxhcyIsImlkIjoiNjA1MWY1MDBkYzM2ZjQxNjNjOWE4Mjg4IiwiaWF0IjoxNjE2MDAzNTY3fQ.4CaY1DW4swVoxCd4HcSQ3jCsUGpBItveMr1lkx273XI
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI2MDUxZjUyN2RjMzZmNDE2M2M5YTgyODkiLCJpYXQiOjE2MTYwMjEyNjB9.pVAe1cl00gixxy3UdIrhHD3CUOGfH3nylLmcF6jzEfo
 
 {
-  "title": "This is my third post with middleware and token auth",
+  "title": "This is my second post with middleware and token auth",
   "author": "Frank L. Wright",
   "url": "https://web.com",
   "likes": 5,
