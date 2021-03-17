@@ -11,7 +11,7 @@ const api = supertest(app)
 
 const Blog = require('../models/blog');
 
-beforeEach(async () => {
+/* beforeEach(async () => {
   await Blog.deleteMany({})
   console.log('cleared')
 
@@ -21,7 +21,7 @@ beforeEach(async () => {
     console.log('saved')
   }
   console.log('done')
-})
+}) */
 
 // tests
 describe('when there is initially some notes saved', () => {
