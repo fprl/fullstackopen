@@ -1,8 +1,9 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhlbGxhcyIsImlkIjoiNjA1MWY1MDBkYzM2ZjQxNjNjOWE4Mjg4IiwiaWF0IjoxNjE2MDAwMTQ0fQ.w4cPj4YFnT8Dk6WnEfWVuO9WpRUrI-e1ORZePpn2YHs
 
 {
-  "title": "Ancient architecture",
+  "title": "This is my second post, by Arto Hellas",
   "author": "Frank L. Wright",
   "url": "https://web.com",
   "likes": 5,
