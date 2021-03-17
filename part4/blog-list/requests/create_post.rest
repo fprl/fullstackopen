@@ -2,8 +2,9 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-  "title": "Modern architecture",
+  "title": "Ancient architecture",
   "author": "Frank L. Wright",
   "url": "https://web.com",
-  "likes": 5
+  "likes": 5,
+  "userId": "6051f500dc36f4163c9a8288"
 }
