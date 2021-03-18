@@ -1,6 +1,6 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI2MDUxZjUyN2RjMzZmNDE2M2M5YTgyODkiLCJpYXQiOjE2MTYwMjEyNjB9.pVAe1cl00gixxy3UdIrhHD3CUOGfH3nylLmcF6jzEfo
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhlbGxhcyIsImlkIjoiNjA1MWY1MDBkYzM2ZjQxNjNjOWE4Mjg4IiwiaWF0IjoxNjE2MDYwODEzfQ.4CGr-5iV7MdGh2GQUrLUrXaeltKZhhoQsspGISzHIhg
 
 {
   "title": "This is my fourth post with middleware and token auth",
