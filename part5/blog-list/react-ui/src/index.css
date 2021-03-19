@@ -1,3 +1,19 @@
 label {
   display: block;
 }
+
+.successful {
+  color: green;
+  border: 1px solid green;
+  background-color: gray;
+}
+
+.error {
+  color: red;
+  border: 1px solid red;
+  background-color: gray;
+}
+
+.none {
+ display: none;
+}

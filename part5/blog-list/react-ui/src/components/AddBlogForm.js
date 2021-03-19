@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { blogService } from '../services/blogs'
 
-export const AddBlogForm = ({ setNewRequest }) => {
+export const AddBlogForm = ({ setNewRequest, handleNotification }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
@@ -17,8 +17,9 @@ export const AddBlogForm = ({ setNewRequest }) => {
       setTitle('')
       setAuthor('')
       setUrl('')
+      handleNotification('successful', `${newBlog.title} by ${newBlog.author} was added`)
     } catch (error) {
-      console.log(error)
+      handleNotification('error', error.message)
     }
   }
 
