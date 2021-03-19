@@ -63,7 +63,7 @@ const App = () => {
         setUser(null)
       }}>logout</button></p>
 
-      <Togglable buttonLabel={'new note'} ref={addBlogFormRef}>
+      <Togglable buttonLabel={'create new blog'} ref={addBlogFormRef}>
       <h2>create new</h2>
       <AddBlogForm setNewRequest={setNewRequest} handleNotification={handleNotification} addBlogFormRef={addBlogFormRef}/>
       </Togglable>

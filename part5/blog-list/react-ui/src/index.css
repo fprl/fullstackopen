@@ -14,6 +14,16 @@ label {
   background-color: gray;
 }
 
+.blog-info {
+  border: 2px solid black;
+  padding: 1rem;
+  margin: 0.5rem;
+}
+
+.blog-info p {
+  margin: 0.5rem;
+}
+
 .none {
  display: none;
 }
