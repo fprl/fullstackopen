@@ -1,8 +1,7 @@
-import React from 'react'
-import { Blog } from './Blog'
+import React, { useState } from 'react'
 
-export const Blogs = ({ blogs }) => (
-  <div>
-  {blogs.map(blog => <Blog key={blog.id} blog={blog} />)}
-  </div>
+export const Blogs = (props) => (
+    <section>
+      {props.children}
+    </section>
 )

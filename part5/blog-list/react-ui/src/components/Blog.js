@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { blogService } from '../services/blogs'
 
-export const Blog = ({ blog }) => {
+export const Blog = ({ blog, setNewRequest }) => {
   const [visible, setVisible] = useState(false)
   const [likes, setLikes] = useState(blog.likes)
 
@@ -20,9 +20,9 @@ export const Blog = ({ blog }) => {
       await blogService
         .updateLikes(blog.id, updatedBlog)
       setLikes(updatedBlog.likes)
-    } catch (error) {
-      console.log(error);
-    }
+      } catch (error) {
+        console.log(error);
+      }
   }
 
   return(
