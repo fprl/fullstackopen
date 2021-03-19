@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-
+import React, { useState, useEffect, useRef } from 'react'
 import { blogService } from './services/blogs'
 
+import { Togglable } from './components/Togglable'
 import { LoginForm } from './components/LoginForm'
 import { Blogs } from './components/Blogs'
 import { AddBlogForm } from './components/AddBlogForm'
@@ -29,13 +29,14 @@ const App = () => {
   }, [])
 
   const handleNotification = (action, message) => {
-
     const newNotification = {text: message, action};
     setNotification({...notification, ...newNotification})
 
     const clearNotification = {text: null, action: null}
     setTimeout(() => setNotification({...notification, ...clearNotification}), 5000);
   }
+
+  const addBlogFormRef = useRef()
 
   if (user === null) {
     return (
@@ -60,10 +61,12 @@ const App = () => {
         window.localStorage.removeItem('loggedBlogappUser')
         handleNotification('error', `${user.name} successful logged out`)
         setUser(null)
-        }}>logout</button></p>
+      }}>logout</button></p>
 
+      <Togglable buttonLabel={'new note'} ref={addBlogFormRef}>
       <h2>create new</h2>
-      <AddBlogForm setNewRequest={setNewRequest} handleNotification={handleNotification} />
+      <AddBlogForm setNewRequest={setNewRequest} handleNotification={handleNotification} addBlogFormRef={addBlogFormRef}/>
+      </Togglable>
 
       <Blogs blogs={blogs}/>
     </div>

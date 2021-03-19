@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { blogService } from '../services/blogs'
 
-export const AddBlogForm = ({ setNewRequest, handleNotification }) => {
+export const AddBlogForm = ({ setNewRequest, handleNotification, addBlogFormRef }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
@@ -17,6 +17,8 @@ export const AddBlogForm = ({ setNewRequest, handleNotification }) => {
       setTitle('')
       setAuthor('')
       setUrl('')
+      
+      addBlogFormRef.current.toggleVisibility()
       handleNotification('successful', `${newBlog.title} by ${newBlog.author} was added`)
     } catch (error) {
       handleNotification('error', error.message)
