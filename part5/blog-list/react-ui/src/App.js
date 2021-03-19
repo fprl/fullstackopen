@@ -13,22 +13,33 @@ const App = () => {
     )  
   }, [])
 
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+    }
+  }, [])
+
+  if (user === null) {
+    return (
+      <div>
+        <h2>blogs</h2>
+        <LoginForm setUser={setUser} />
+      </div>
+    )
+  }
+  
   return (
     <div>
-      {user === null &&
-        <>
-          <h2>blogs</h2>
-          <LoginForm setUser={setUser}/>
-        </>
-      }
+      <h2>blogs</h2>
+      <p>{user.name} logged in 
+      <button onClick={() => {
+        window.localStorage.removeItem('loggedBlogappUser')
+        setUser(null)
+        }}>logout</button></p>
 
-      {user &&
-        <>
-          <h2>blogs</h2>
-          <p>{user.name} logged in</p>
-          <Blogs blogs={blogs}/>
-        </>
-      }
+      <Blogs blogs={blogs}/>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { loginService } from '../services/login'
 import { blogService } from '../services/blogs'
 
@@ -8,18 +8,19 @@ export const LoginForm = ({ setUser }) => {
 
   const handleLogin = async (event) => {
     event.preventDefault()
-  
     try {
       const user = await loginService
         .login({ username, password })
-
-      blogService.setToken(user.token)
-
-      setUser(user)
+      
+      window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user))
+      
       setUsername('')
       setPassword('')
+      setUser(user)
+      blogService.setToken(user.token)
     } catch (error) {
       console.log(error)
+      setUser(null)
     }
   }
 
