@@ -68,7 +68,7 @@ const App = () => {
       <AddBlogForm setNewRequest={setNewRequest} handleNotification={handleNotification} addBlogFormRef={addBlogFormRef}/>
       </Togglable>
 
-      <Blogs blogs={blogs}/>
+      <Blogs blogs={blogs} />
     </div>
   )
 }
