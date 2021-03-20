@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 export const Blogs = (props) => (
-    <section>
-      {props.children}
-    </section>
+  <section>
+    {props.children}
+  </section>
 )

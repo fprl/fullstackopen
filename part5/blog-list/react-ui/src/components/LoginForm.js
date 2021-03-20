@@ -11,9 +11,9 @@ export const LoginForm = ({ setUser, handleNotification }) => {
     try {
       const user = await loginService
         .login({ username, password })
-      
+
       window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user))
-      
+
       setUsername('')
       setPassword('')
       setUser(user)
@@ -28,7 +28,7 @@ export const LoginForm = ({ setUser, handleNotification }) => {
     <form onSubmit={handleLogin}>
       <div>
         username
-          <input
+        <input
           type="text"
           value={username}
           name="Username"
@@ -37,7 +37,7 @@ export const LoginForm = ({ setUser, handleNotification }) => {
       </div>
       <div>
         password
-          <input
+        <input
           type="password"
           value={password}
           name="Password"
@@ -45,6 +45,6 @@ export const LoginForm = ({ setUser, handleNotification }) => {
         />
       </div>
       <button type="submit">login</button>
-    </form> 
-  )     
+    </form>
+  )
 }

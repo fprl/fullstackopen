@@ -11,7 +11,7 @@ export const Blog = ({ blog, user, setNewRequest }) => {
     setVisible(!visible)
   }
 
-  const handleLikes = async (id) => {
+  const handleLikes = async () => {
     const updatedBlog = {
       likes: likes + 1
     }
@@ -20,20 +20,20 @@ export const Blog = ({ blog, user, setNewRequest }) => {
       await blogService
         .updateLikes(blog.id, updatedBlog)
       setLikes(updatedBlog.likes)
-      } catch (error) {
-        console.log(error);
-      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const handleRemoveBlog = async (id) => {
-    const result = window.confirm(`Remove blog ${blog.title} by ${blog.author}`);
+    const result = window.confirm(`Remove blog ${blog.title} by ${blog.author}`)
     console.log(result)
     if (result) {
       try {
         await blogService
           .removeBlog(id)
       } catch (error) {
-        console.log(error) 
+        console.log(error)
       }
       setNewRequest()
     }
@@ -44,7 +44,7 @@ export const Blog = ({ blog, user, setNewRequest }) => {
       <p>{blog.title} by {blog.author} <button onClick={toggleVisibility}>{visible ? 'hide' : 'view'}</button></p>
       <div className={showWhenVisible}>
         <p>{blog.url}</p>
-        <p>likes: {likes} <button onClick={() => handleLikes(blog.id)}>like</button></p>
+        <p>likes: {likes} <button onClick={handleLikes}>like</button></p>
         <p>{blog.user.username}</p>
         {user.username === blog.user.username
           ? <button onClick={() => handleRemoveBlog(blog.id)}>remove</button>

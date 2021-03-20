@@ -12,12 +12,12 @@ export const AddBlogForm = ({ setNewRequest, handleNotification, addBlogFormRef 
     try {
       const newBlog = await blogService
         .createBlog({ title, author, url })
-      
+
       setNewRequest(new Date())
       setTitle('')
       setAuthor('')
       setUrl('')
-      
+
       addBlogFormRef.current.toggleVisibility()
       handleNotification('successful', `${newBlog.title} by ${newBlog.author} was added`)
     } catch (error) {

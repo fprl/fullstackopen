@@ -17,7 +17,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [newRequest])
 
   useEffect(() => {
@@ -30,11 +30,11 @@ const App = () => {
   }, [])
 
   const handleNotification = (action, message) => {
-    const newNotification = {text: message, action};
-    setNotification({...notification, ...newNotification})
+    const newNotification = { text: message, action }
+    setNotification({ ...notification, ...newNotification })
 
-    const clearNotification = {text: null, action: null}
-    setTimeout(() => setNotification({...notification, ...clearNotification}), 5000);
+    const clearNotification = { text: null, action: null }
+    setTimeout(() => setNotification({ ...notification, ...clearNotification }), 5000)
   }
 
   const addBlogFormRef = useRef()
@@ -50,19 +50,19 @@ const App = () => {
       </>
     )
   }
-  
+
   return (
     <div>
       <h2>blogs</h2>
 
       <Notification notification={notification}/>
 
-      <p>{user.name} logged in 
-      <button onClick={() => {
-        window.localStorage.removeItem('loggedBlogappUser')
-        handleNotification('error', `${user.name} successful logged out`)
-        setUser(null)
-      }}>logout</button></p>
+      <p>{user.name} logged in
+        <button onClick={() => {
+          window.localStorage.removeItem('loggedBlogappUser')
+          handleNotification('error', `${user.name} successful logged out`)
+          setUser(null)
+        }}>logout</button></p>
 
       <Togglable buttonLabel={'create new blog'} ref={addBlogFormRef}>
         <h2>create new</h2>
