@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import loginService from '../services/login'
+import noteService from '../services/notes'
 
-const LoginForm = ({
-  handleSubmit,
-  handleUsernameChange,
-  handlePasswordChange,
-  username,
-  password,
-}) => {
+const LoginForm = ({ setUser, setErrorMessage }) => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    try {
+      const user = await loginService.login({
+        username, password,
+      })
+
+      noteService.setToken(user.token)
+      window.localStorage.setItem(
+        'loggedNoteappUser', JSON.stringify(user)
+      )
+
+      setUsername('')
+      setPassword('')
+      setUser(user)
+    } catch (exception) {
+      setErrorMessage('wrong credentials')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
+  }
+
   return (
     <div>
       <h2>Login</h2>
@@ -14,20 +37,21 @@ const LoginForm = ({
       <form onSubmit={handleSubmit}>
         <div>
           username
-          <input value={username} onChange={handleUsernameChange} />
+          <input value={username} onChange={({ target }) => setUsername(target.value)} />
         </div>
         <div>
           password
-          <input
-            type="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
+          <input type="password" value={password} onChange={({ target }) => setPassword(target.value)} />
         </div>
         <button type="submit">login</button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default LoginForm;
+LoginForm.propTypes = {
+  setUser: PropTypes.func.isRequired,
+  setErrorMessage: PropTypes.func.isRequired
+}
+
+export default LoginForm

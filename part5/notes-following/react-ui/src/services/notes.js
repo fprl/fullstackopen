@@ -8,7 +8,7 @@ const setToken = newToken => {
 }
 
 const getAll = () => {
-  const request = axios.get(baseUrl);
+  const request = axios.get(baseUrl)
   return request.then(response => response.data)
 }
 
@@ -17,7 +17,7 @@ const create = async newObject => {
     headers: { Authorization: token }
   }
 
-  const response = await axios.post(baseUrl, newObject, config);
+  const response = await axios.post(baseUrl, newObject, config)
   return response.data
 }
 
@@ -26,6 +26,6 @@ const update = (id, newObject) => {
   return request.then(response => response.data)
 }
 
-const noteService = { getAll, create, update, setToken };
+const noteService = { getAll, create, update, setToken }
 
-export default noteService;
+export default noteService
