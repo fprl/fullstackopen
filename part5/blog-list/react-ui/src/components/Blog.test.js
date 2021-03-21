@@ -1,0 +1,38 @@
+import React from 'react'
+import '@testing-library/jest-dom/extend-expect'
+import { render, fireEvent } from '@testing-library/react'
+import { prettyDOM } from '@testing-library/dom'
+import { Blog } from './Blog'
+
+describe('<Blog />', () => {
+  let component
+
+  beforeEach(() => {
+    const blog = {
+      title: 'A test',
+      author: 'Franco Romano',
+      user: {
+        username: 'francoromanol'
+      },
+      likes: 5,
+    }
+
+    const user = {
+      username: 'francoromanol'
+    }
+
+    component = render(<Blog blog={blog} user={user} />)
+  })
+
+  test('when element is rendered, only displays title and author', () => {
+    const visibleInformation = component.getByText('A test by Franco Romano')
+    const invisibleInformation = component.container.querySelector('.blog-info div')
+
+    // component.debug()
+    // console.log(prettyDOM(visibleInformation))
+    console.log(prettyDOM(invisibleInformation))
+
+    expect(visibleInformation).toBeDefined()
+    expect(invisibleInformation).toHaveClass('none')
+  })
+})
