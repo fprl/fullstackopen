@@ -4,6 +4,9 @@ import { render, fireEvent } from '@testing-library/react'
 import { prettyDOM } from '@testing-library/dom'
 import { Blog } from './Blog'
 
+// component.debug()
+// console.log(prettyDOM(element))
+
 describe('<Blog />', () => {
   let component
 
@@ -26,13 +29,20 @@ describe('<Blog />', () => {
 
   test('when element is rendered, only displays title and author', () => {
     const visibleInformation = component.getByText('A test by Franco Romano')
-    const invisibleInformation = component.container.querySelector('.blog-info div')
-
-    // component.debug()
-    // console.log(prettyDOM(visibleInformation))
-    console.log(prettyDOM(invisibleInformation))
+    const invisibleElement = component.container.querySelector('.blog-info div')
 
     expect(visibleInformation).toBeDefined()
-    expect(invisibleInformation).toHaveClass('none')
+    expect(invisibleElement).toHaveClass('none')
+  })
+
+  test.only('when element toggle visibility, blog url and number of likes are displayed', () => {
+    const toggleButton = component.getByText('view')
+    const invisibleElement = component.container.querySelector('.blog-info div')
+
+    fireEvent.click(toggleButton)
+
+    expect(toggleButton).toHaveTextContent('hide')
+    expect(invisibleElement).not.toHaveClass('none')
+
   })
 })
