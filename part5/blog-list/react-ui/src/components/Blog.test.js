@@ -1,7 +1,7 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent } from '@testing-library/react'
-import { prettyDOM } from '@testing-library/dom'
+import { prettyDOM, waitFor } from '@testing-library/dom'
 import { Blog } from './Blog'
 
 // component.debug()
@@ -35,7 +35,7 @@ describe('<Blog />', () => {
     expect(invisibleElement).toHaveClass('none')
   })
 
-  test.only('when element toggle visibility, blog url and number of likes are displayed', () => {
+  test('when element toggle visibility, blog url and number of likes are displayed', () => {
     const toggleButton = component.getByText('view')
     const invisibleElement = component.container.querySelector('.blog-info div')
 
@@ -45,4 +45,16 @@ describe('<Blog />', () => {
     expect(invisibleElement).not.toHaveClass('none')
 
   })
+
+  test.only('when like button is clicked, likes state changes', async () => {
+    const addLikesButton = component.container.querySelector('.click')
+    const likesCounter = component.container.querySelector('.likes-counter')
+
+    fireEvent.click(addLikesButton)
+    const likeCount = await waitFor(() => component.getByText('likes: 6'))
+
+    console.log(prettyDOM(likeCount))
+    expect(likeCount).toHaveTextContent('6')
+  })
+
 })

@@ -44,7 +44,7 @@ export const Blog = ({ blog, user, setNewRequest }) => {
       <p>{blog.title} by {blog.author} <button onClick={toggleVisibility}>{visible ? 'hide' : 'view'}</button></p>
       <div className={showWhenVisible}>
         <p>{blog.url}</p>
-        <p>likes: {likes} <button onClick={handleLikes}>like</button></p>
+        <p className='likes-counter' >likes: {likes} <button className='click' onClick={handleLikes}>like</button></p>
         <p>{blog.user.username}</p>
         {user.username === blog.user.username
           ? <button onClick={() => handleRemoveBlog(blog.id)}>remove</button>
