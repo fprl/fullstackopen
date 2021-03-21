@@ -8,7 +8,7 @@ const NoteForm = ({ setNewRequest, noteFormRef }) => {
     setNewNote(event.target.value)
   }
 
-  const addNote = (event) => {
+  const addNote = async (event) => {
     event.preventDefault()
 
     const noteObject = {
@@ -17,18 +17,19 @@ const NoteForm = ({ setNewRequest, noteFormRef }) => {
       important: Math.random() > 0.5,
     }
 
-    noteService
-      .create(noteObject)
-      .then(returnedNote => {
-        noteFormRef.current.toggleVisibility()
-        setNewNote('')
-        setNewRequest(new Date())
-      })
-      .catch(error => console.log(error.response.data.error))
+    try {
+      await noteService
+        .create(noteObject)
+    } catch (error) {
+      console.log(error.response.data.error)
+    }
+    noteFormRef.current.toggleVisibility()
+    setNewNote('')
+    setNewRequest(new Date())
   }
 
   return (
-    <div>
+    <div className='formDiv'>
       <h2>Create a new note</h2>
 
       <form onSubmit={addNote}>
