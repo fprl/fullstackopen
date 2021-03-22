@@ -34,4 +34,36 @@ describe.only('Blog app', function() {
       cy.get('html').should('not.contain', 'Matti Luukkainen logged in')
     })
   })
+
+  describe.only('When logged in', function() {
+    beforeEach(function() {
+      cy.login({ username: 'mluukkai', password: 'salainen' })
+    })
+
+    it('A blog can be created', function() {
+      cy.createBlog({
+        title: 'A new note from cypress',
+        author: 'Franco Romano',
+        url: 'www.google.com'
+      })
+    })
+
+    describe.only('users can interact with created blogs', function() {
+      beforeEach(function() {
+        cy.createBlog({
+          title: 'A new note from cypress',
+          author: 'Franco Romano',
+          url: 'www.google.com'
+        })
+      })
+
+      it('User can like a blog', function() {
+        cy.contains('view').click()
+
+        cy.get('.click').click()
+        cy.get('.likes-counter')
+          .should('contain', 'likes: 1')
+      })
+    })
+  })
 })
