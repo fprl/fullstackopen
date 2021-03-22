@@ -47,7 +47,7 @@ export const Blog = ({ blog, user, setNewRequest }) => {
         <p className='likes-counter' >likes: {likes} <button className='click' onClick={handleLikes}>like</button></p>
         <p>{blog.user.username}</p>
         {user.username === blog.user.username
-          ? <button onClick={() => handleRemoveBlog(blog.id)}>remove</button>
+          ? <button id='remove-blog' onClick={() => handleRemoveBlog(blog.id)}>remove</button>
           : null
         }
       </div>

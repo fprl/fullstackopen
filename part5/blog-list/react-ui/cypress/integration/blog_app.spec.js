@@ -64,6 +64,13 @@ describe.only('Blog app', function() {
         cy.get('.likes-counter')
           .should('contain', 'likes: 1')
       })
+
+      it('User can delete its own blog', function() {
+        cy.contains('view').click()
+
+        cy.get('#remove-blog').click()
+        cy.get('.blog-info').should('not.exist')
+      })
     })
   })
 })
