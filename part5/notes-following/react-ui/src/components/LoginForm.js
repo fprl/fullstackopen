@@ -37,13 +37,13 @@ const LoginForm = ({ setUser, setErrorMessage }) => {
       <form onSubmit={handleSubmit}>
         <div>
           username
-          <input value={username} onChange={({ target }) => setUsername(target.value)} />
+          <input id="username" value={username} onChange={({ target }) => setUsername(target.value)} />
         </div>
         <div>
           password
-          <input type="password" value={password} onChange={({ target }) => setPassword(target.value)} />
+          <input id="password" type="password" value={password} onChange={({ target }) => setPassword(target.value)} />
         </div>
-        <button type="submit">login</button>
+        <button id="login-button" type="submit">login</button>
       </form>
     </div>
   )
