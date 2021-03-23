@@ -10,7 +10,7 @@ describe.only('Blog app', function() {
     cy.visit('http://localhost:3000')
   })
 
-  it('Login form is shown', function() {
+  it('login form is shown', function() {
     cy.visit('http://localhost:3000')
     cy.contains('log in to application')
     cy.contains('login')
@@ -40,7 +40,7 @@ describe.only('Blog app', function() {
       cy.login({ username: 'mluukkai', password: 'salainen' })
     })
 
-    it('A blog can be created', function() {
+    it('a blog can be created', function() {
       cy.createBlog({
         title: 'A new note from cypress',
         author: 'Franco Romano',
@@ -48,29 +48,36 @@ describe.only('Blog app', function() {
       })
     })
 
-    describe.only('users can interact with created blogs', function() {
-      beforeEach(function() {
-        cy.createBlog({
-          title: 'A new note from cypress',
-          author: 'Franco Romano',
-          url: 'www.google.com'
-        })
+    describe('Users can interact with created blogs', function() {
+      beforeEach(function () {
+        cy.createBlog({ title: 'First note from cypress', author: 'Franco Romano', url: 'www.google.com', likes: 5 })
+        cy.createBlog({ title: 'Second note from cypress', author: 'Bianca Perotti', url: 'www.google.com', likes: 10 })
+        cy.createBlog({ title: 'Third note from cypress', author: 'Tomas Fernandez', url: 'www.google.com', likes: 15 })
+        cy.createBlog({ title: 'Fourth note from cypress', author: 'Mauro Ostinelli', url: 'www.google.com', likes: 20 })
       })
 
-      it('User can like a blog', function() {
+      it('and like a blog', function() {
         cy.contains('view').click()
 
-        cy.get('.click').click()
+        cy.contains('like').click()
         cy.get('.likes-counter')
-          .should('contain', 'likes: 1')
+          .should('contain', 'likes: 21')
       })
 
-      it('User can delete its own blog', function() {
+      it('and delete its own blog', function() {
         cy.contains('view').click()
 
         cy.get('#remove-blog').click()
-        cy.get('.blog-info').should('not.exist')
+        cy.contains('Fourth note from cypress').should('not.exist')
       })
+
+      it('and blogs are ordered according to likes', function () {
+        cy.get('section > article')
+          .then(blogs => {
+            expect(blogs[0]).to.contain.text('likes: 20')
+          })
+      })
+
     })
   })
 })
