@@ -12,7 +12,7 @@ const Notes = ({ user }) => {
   const [newRequest, setNewRequest] = useState(new Date())
 
   const [showAll, setShowAll] = useState(true)
-  const [errorMessage, setErrorMessage] = useState(null)
+  // const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     noteService.getAll().then((initialNotes) => {
