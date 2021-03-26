@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router'
 import PropTypes from 'prop-types'
+
 import loginService from '../services/login'
 import noteService from '../services/notes'
 
 const LoginForm = ({ setUser, setErrorMessage }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
+  const history = useHistory()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -22,6 +26,7 @@ const LoginForm = ({ setUser, setErrorMessage }) => {
       setUsername('')
       setPassword('')
       setUser(user)
+      history.push('/')
     } catch (exception) {
       setErrorMessage('wrong credentials')
       setTimeout(() => {

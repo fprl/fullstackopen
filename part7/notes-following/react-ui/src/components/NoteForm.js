@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import noteService from '../services/notes'
+
 
 const NoteForm = ({ setNewRequest, noteFormRef }) => {
   const [newNote, setNewNote] = useState('')
+  const history = useHistory()
 
   const handleChange = (event) => {
     setNewNote(event.target.value)
@@ -19,12 +22,15 @@ const NoteForm = ({ setNewRequest, noteFormRef }) => {
     try {
       await noteService
         .create(noteObject)
+        .then(returnedNote => {
+          setNewNote('')
+          noteFormRef.current.toggleVisibility()
+          history.push(`/notes/${returnedNote.id}`)
+        })
     } catch (error) {
       console.log(error.response.data.error)
     }
-    noteFormRef.current.toggleVisibility()
-    setNewNote('')
-    setNewRequest(new Date())
+    // setNewRequest(new Date())
   }
 
   return (

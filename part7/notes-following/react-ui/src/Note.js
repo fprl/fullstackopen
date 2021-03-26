@@ -1,44 +1,57 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
+import useFetch from './hooks/useFetch'
 import noteService from './services/notes'
+
 import Notification from './components/Notification'
 
 const Note = () => {
-  const [note, setNote] = useState({})
-  const [errorMessage, setErrorMessage] = useState(null)
+  const [note, setNote] = useState(null)
 
   const { id } = useParams()
+  let { response, isLoading, error } = useFetch({ url: `/api/notes/${id}`, timeOut: 500 })
 
-  const toggleImportanceOf = (id) => {
+  useEffect(() => {
+    if (response) {
+      setNote(response)
+    }
+  }, [response])
+
+  const toggleImportanceOf = () => {
     const changedNote = { ...note, important: !note.important }
 
     noteService
       .update(id, changedNote)
       .then((returnedNote) => {
-        setNotes(notes.map((note) => (note.id !== id ? note : returnedNote)))
+        setNote ({ ...response, ...returnedNote })
       })
-      .catch((error) => {
-        setErrorMessage(
-          `Note '${note.content}' was already removed from server`
-        )
+      .catch(() => {
+        error = `Note '${note.content}' was already removed from server`
         setTimeout(() => {
-          setErrorMessage(null)
+          error = null
         }, 5000)
       })
   }
 
-  const label = note.important ? 'make not important' : 'make important'
-
   return (
     <div>
-      <h1>Blog - {id}</h1>
-{/*       <Notification setErrorMessage={setErrorMessage}/>
-      <h2>{note.content}</h2>
-      <p>{note.user.username}</p>
-      <p>{note.id}</p>
-      <p><strong>{note.important ? 'important' : 'not important'}</strong></p>
-      <button onClick={() => toggleImportanceOf(id)}>{label}</button> */}
+      {isLoading &&
+        <h3>Loading note...</h3>
+      }
+
+      {error && <Notification message={error}/>}
+
+      {note &&
+      <>
+        <h1>Blog - {id}</h1>
+        <h2>{note.content}</h2>
+        <p>{note.user.username}</p>
+        <p>{note.id}</p>
+        <p><strong>{note.important ? 'important' : 'not important'}</strong></p>
+        <button onClick={toggleImportanceOf}>{note.important ? 'make not important' : 'make important'}</button>
+      </>
+      }
     </div>
   )
 }

@@ -1,6 +1,10 @@
 import axios from 'axios'
 const baseUrl = '/api/notes'
 
+export const notesApi = axios.create({
+  baseURL: baseUrl
+})
+
 let token = null
 
 const setToken = newToken => {
