@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
-
 import useFetch from './hooks/useFetch'
-
-// import noteService from './services/notes'
 
 import Notification from './components/Notification'
 import NoteForm from './components/NoteForm'

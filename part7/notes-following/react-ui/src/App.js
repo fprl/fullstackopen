@@ -42,7 +42,9 @@ const App = () => {
 
       <Switch>
         <Route path='/' exact>
-          <Home />
+          <Home>
+            {user ? <p>{user.name} logged in.</p> : null}
+          </Home>
         </Route>
         <Route path='/notes/:id' component={Note} />
         <Route path='/notes' >
