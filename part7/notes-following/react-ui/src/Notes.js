@@ -1,11 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 import useFetch from './hooks/useFetch'
 
 import Notification from './components/Notification'
 import NoteForm from './components/NoteForm'
 import Togglable from './components/Togglable'
+
+const Wrapper = styled.div`
+  background: Bisque;
+  margin-top: 1rem;
+  padding: 2rem;
+  border: 1px solid black;
+`
 
 const Notes = ({ user }) => {
   const [newRequest, setNewRequest] = useState(new Date())
@@ -22,7 +30,7 @@ const Notes = ({ user }) => {
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
 
   return (
-    <div>
+    <Wrapper>
       <h1>Notes</h1>
 
       <Notification message={error} />
@@ -50,7 +58,7 @@ const Notes = ({ user }) => {
         </ul>
       </>
       }
-    </div>
+    </Wrapper>
   )
 }
 
